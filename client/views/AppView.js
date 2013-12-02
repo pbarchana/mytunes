@@ -12,6 +12,12 @@ MyTunes.Views.AppView = Backbone.View.extend({
       this.playerView.setSong(model.get('currentSong'));
     }, this);
 
+    var that = this;
+    this.playerView.$el.on("ended", function(){
+     that.model.get("songQueue").at(0).play();
+     that.model.get("songQueue").trigger('ended');
+     // that.model.get('songQueue').shift();
+    });
     // this.model.on('ended:currentSong', function(model){
     //   this.playerView.setSong(this.libraryView.collection.at(0));
     // }, this);

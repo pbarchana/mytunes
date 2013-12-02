@@ -16,14 +16,14 @@ describe('SongQueueView', function() {
     ]);
   });
 
-  xit('creates SongQueueEntryViews for each queued song & renders them', function(){
+  it('creates SongQueueEntryViews for each queued song & renders them', function(){
     spyOn(MyTunes.Views.SongQueueEntryView.prototype, 'render').andCallThrough();
     view = new MyTunes.Views.SongQueueView({collection: fakeSongs});
     view.render();
-    expect(SongQueueEntryView.prototype.render).toHaveBeenCalled();
+    expect(MyTunes.Views.SongQueueEntryView.prototype.render).toHaveBeenCalled();
   });
 
-  xit('renders when add or remove event fires from the song queue collection', function(){
+  it('renders when add or remove event fires from the song queue collection', function(){
     spyOn(MyTunes.Views.SongQueueView.prototype, 'render').andCallThrough();
     view = new MyTunes.Views.SongQueueView({collection: fakeSongs});
     view.collection.add({
@@ -31,7 +31,7 @@ describe('SongQueueView', function() {
       url: '/test/testsong3.mp3',
       title:'test song 3'
     });
-    view.collection.pop();
+    // view.collection.pop();
     expect(view.render.callCount).toEqual(2);
   });
 
