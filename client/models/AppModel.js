@@ -9,7 +9,7 @@ MyTunes.Models.AppModel = Backbone.Model.extend({
     this.set('songQueue', new MyTunes.Collections.SongQueue());
 
     /* Note that 'this' is passed as the third argument. That third argument is
-    the context. The 'play' handler will always be bound to that context we pass in.
+    the context. The 'play'!!! handler will always be bound to that context we pass in.
     In this example, we're binding it to the App. This is helpful because otherwise
     the 'this' we use that's actually in the funciton (this.set('currentSong', song)) would
     end up refering to the window. That's just what happens with all JS events. The handlers end up
@@ -20,9 +20,14 @@ MyTunes.Models.AppModel = Backbone.Model.extend({
     }, this);
 
     params.library.on('enqueue', function(song){
-      this.get('songQueue').push(song);
+      this.get('songQueue').add(song);
     }, this);
 
+    this.get('songQueue').on('add', function() {
+      if (this.get('songQueue').length === 1 && !this.get('currentSong').get('title')) {
+        this.get('songQueue').playFirst();
+      }
+      }, this);
 
   }
 

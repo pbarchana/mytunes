@@ -6,10 +6,18 @@ MyTunes.Views.SongQueueEntryView = Backbone.View.extend({
 
   tagName: 'tr',
 
-  template: _.template('<td>(<%= artist %>)</td><td><%= title %></td>'),
+  events: {
+    'click .deleteButton': 'deleteFromQueue'
+  },
+
+  template: _.template($('.songQueueEntry').html()),
 
   render: function(){
     return this.$el.html(this.template(this.model.attributes));
+  },
+
+  deleteFromQueue: function () {
+    this.model.dequeue();
   }
 
 });
