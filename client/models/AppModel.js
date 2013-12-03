@@ -16,7 +16,7 @@ MyTunes.Models.AppModel = Backbone.Model.extend({
     getting called from the window (unless we override it, as we do here). */
     params.library.on('play', function(song){
       this.set('currentSong', song);
-      // this.get('songQueue').shift();
+      this.get('currentSong').set('playCount', this.get('currentSong').get('playCount') + 1);
     }, this);
 
     params.library.on('enqueue', function(song){
